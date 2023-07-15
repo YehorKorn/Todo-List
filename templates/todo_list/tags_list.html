@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style="margin-bottom: 20px;">Tags
+      <a class="btn btn-primary link-to-page" href="{% url 'todo-list:tags-create' %}">Add</a>
+    </h1>
+
+    {% if tags_list %}
+      <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for tag in tags_list %}
+        <tr>
+          <td>
+              {{ tag.name }}
+          </td>
+          <td>
+            <a class="btn btn-secondary" href="{% url 'todo-list:tags-update' tag.pk %}">Update</a>
+          </td>
+          <td>
+            <form id="deleteForm" method="POST" action="{% url 'todo-list:tags-delete' tag.pk %}">
+              {% csrf_token %}
+              <button class="btn btn-secondary" id="deleteButton" type="submit">Delete</button>
+            </form>
+            <!-- Modal window to confirm deletion -->
+              <div id="deleteModal" class="modal">
+                <div class="modal-content">
+                  <h4>Confirm deletion</h4>
+                  <p>Are you sure you want to remove this tag?</p>
+                  <form id="confirmDeleteForm" method="POST" action="{% url 'todo-list:tags-delete' tag.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" id="confirmDeleteButton" type="submit">Delete</button>
+                    <button class="btn btn-secondary" id="cancelDeleteButton" type="button">Cancel</button>
+                  </form>
+                </div>
+              </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+    <p>There are no tags Todo-list</p>
+  {% endif %}
+
+{% endblock %}
+
+
+
