@@ -45,12 +45,9 @@ class TaskDeleteView(generic.DeleteView):
 def switch_assignment_is_done_or_not(request, pk):
     task_filter = Task.objects.filter(pk=pk)
     task_get = Task.objects.get(pk=pk)
-    return (
-        HttpResponseRedirect(reverse_lazy("todo-list:index"))
-        and task_filter.update(done_or_not=False)
-        if task_get.done_or_not
-        else task_filter.update(done_or_not=True)
-    )
+    task_filter.update(done_or_not=False) if task_get.done_or_not else task_filter.update(done_or_not=True)
+
+    return HttpResponseRedirect(reverse_lazy("todo-list:index"))
 
 
 class TagsListView(generic.ListView):
