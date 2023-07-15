@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('todo_list', '0001_initial'),
+        ("todo_list", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='content',
-            field=models.CharField(help_text='describes what you should do.', max_length=256),
+            model_name="task",
+            name="content",
+            field=models.CharField(
+                help_text="describes what you should do.", max_length=256
+            ),
         ),
     ]

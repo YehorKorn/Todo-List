@@ -4,39 +4,81 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Tags',
+            name="Tags",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Symbolizes the theme of the task', max_length=64)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Symbolizes the theme of the task", max_length=64
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'tag',
-                'verbose_name_plural': 'tags',
-                'ordering': ['name'],
+                "verbose_name": "tag",
+                "verbose_name_plural": "tags",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Task',
+            name="Task",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField(help_text='describes what you should do.')),
-                ('datetime', models.DateTimeField(auto_now_add=True, help_text='when a task was created')),
-                ('deadline', models.DateTimeField(blank=True, help_text='optional deadline datetime if a task should be done until some datetime', null=True)),
-                ('done_or_not', models.BooleanField(default=False, help_text='Marks if the task is done or not')),
-                ('tags', models.ManyToManyField(related_name='tasks', to='todo_list.tags')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(help_text="describes what you should do."),
+                ),
+                (
+                    "datetime",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="when a task was created"
+                    ),
+                ),
+                (
+                    "deadline",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="optional deadline datetime if a task should be done until some datetime",
+                        null=True,
+                    ),
+                ),
+                (
+                    "done_or_not",
+                    models.BooleanField(
+                        default=False, help_text="Marks if the task is done or not"
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(related_name="tasks", to="todo_list.tags"),
+                ),
             ],
             options={
-                'verbose_name': 'task',
-                'verbose_name_plural': 'tasks',
-                'ordering': ['-datetime'],
+                "verbose_name": "task",
+                "verbose_name_plural": "tasks",
+                "ordering": ["-datetime"],
             },
         ),
     ]

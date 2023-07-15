@@ -20,6 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("todo_list.urls", namespace="todo-list")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

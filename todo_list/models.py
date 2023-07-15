@@ -14,19 +14,27 @@ class Tags(models.Model):
 
 
 class Task(models.Model):
-    content = models.CharField(max_length=256, help_text="describes what you should do.")
-    datetime = models.DateTimeField(help_text="when a task was created", auto_now_add=True)
+    content = models.CharField(
+        max_length=256, help_text="describes what you should do."
+    )
+    datetime = models.DateTimeField(
+        help_text="when a task was created", auto_now_add=True
+    )
     deadline = models.DateTimeField(
         help_text="optional deadline datetime if a task should be done until some datetime",
         null=True,
         blank=True,
     )
-    done_or_not = models.BooleanField(help_text="Marks if the task is done or not", default=False)
+    done_or_not = models.BooleanField(
+        help_text="Marks if the task is done or not", default=False
+    )
     tags = models.ManyToManyField(Tags, related_name="tasks")
 
     def __str__(self):
-        return (f"{self.content} (Created: {self.datetime}; {self.deadline})\n"
-                f"Task is done - {self.done_or_not}.    Tags: {self.tags.name}")
+        return (
+            f"{self.content} (Created: {self.datetime}; {self.deadline})\n"
+            f"Task is done - {self.done_or_not}.    Tags: {self.tags.name}"
+        )
 
     class Meta:
         ordering = ["done_or_not", "-datetime"]
