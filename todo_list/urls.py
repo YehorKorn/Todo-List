@@ -1,10 +1,10 @@
 from django.urls import path
 
 from todo_list.views import (
-    index,
+    TaskList,
     TaskCreateView,
     TaskUpdateView,
-    switch_assignment_is_done_or_not,
+    SwitchAssignmentIsDoneOrNot,
     TagsListView,
     TaskDeleteView,
     TagsCreateView,
@@ -13,13 +13,13 @@ from todo_list.views import (
 )
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", TaskList.as_view(), name="index"),
     path("create/", TaskCreateView.as_view(), name="create"),
     path("update/<int:pk>/", TaskUpdateView.as_view(), name="update"),
     path("delete/<int:pk>/", TaskDeleteView.as_view(), name="delete"),
     path(
         "task/<int:pk>/switch_assignment/",
-        switch_assignment_is_done_or_not,
+        SwitchAssignmentIsDoneOrNot.as_view(),
         name="switch_assignment",
     ),
     path("tags/", TagsListView.as_view(), name="tags-list"),

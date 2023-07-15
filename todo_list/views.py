@@ -7,20 +7,11 @@ from todo_list.forms import TaskForm, TagsForm
 from todo_list.models import Task, Tags
 
 
-def index(request):
-    """View function for the home page of the site."""
-
-    task_list = Task.objects.all().prefetch_related("tags")
-
-    num_visits = request.session.get("num_visits", 0)
-    request.session["num_visits"] = num_visits + 1
-
-    context = {
-        "task_list": task_list,
-        "num_visits": num_visits + 1,
-    }
-
-    return render(request, "todo_list/index.html", context=context)
+class TaskList(generic.ListView):
+    model = Task
+    queryset = Task.objects.all().prefetch_related("tags")
+    context_object_name = "task_list"
+    template_name = "todo_list/index.html"
 
 
 class TaskCreateView(generic.CreateView):
@@ -42,12 +33,15 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo-list:index")
 
 
-def switch_assignment_is_done_or_not(request, pk):
-    task_filter = Task.objects.filter(pk=pk)
-    task_get = Task.objects.get(pk=pk)
-    task_filter.update(done_or_not=False) if task_get.done_or_not else task_filter.update(done_or_not=True)
+class SwitchAssignmentIsDoneOrNot(generic.View):
 
-    return HttpResponseRedirect(reverse_lazy("todo-list:index"))
+    @staticmethod
+    def get(request, pk):
+        task_filter = Task.objects.filter(pk=pk)
+        task_get = Task.objects.get(pk=pk)
+        task_filter.update(done_or_not=False) if task_get.done_or_not else task_filter.update(done_or_not=True)
+
+        return HttpResponseRedirect(reverse_lazy("todo-list:index"))
 
 
 class TagsListView(generic.ListView):
