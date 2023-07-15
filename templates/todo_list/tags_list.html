@@ -47,20 +47,6 @@
     <p>There are no tags Todo-list</p>
   {% endif %}
 
-
-  <script>
-    // Обработчик клика по кнопке удаления
-    document.getElementById('deleteButton').addEventListener('click', function(event) {
-      event.preventDefault(); // Отменяем обычную отправку формы
-      document.getElementById('deleteModal').style.display = 'block'; // Показываем модальное окно
-    });
-
-    // Обработчик клика по кнопке отмены удаления в модальном окне
-    document.getElementById('cancelDeleteButton').addEventListener('click', function(event) {
-      event.preventDefault();
-      document.getElementById('deleteModal').style.display = 'none'; // Скрываем модальное окно
-    });
-  </script>
 {% endblock %}
 
 
